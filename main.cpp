@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cmath>
+#include <fstream>
 using namespace std;
+
+ifstream fin("ecuatie.in");
 
 class Fractie
 {
@@ -75,10 +78,7 @@ int Fractie::get_numitor()
 
 void Fractie::set_numitor(int nr)
 {
-    if (nr==0)
-        cout<<"Eroare-numitor 0"<<endl;
-    else
-        numitor=nr;
+    numitor=nr;
 }
 
 void Fractie::simplificare()
@@ -100,12 +100,15 @@ void Fractie::simplificare()
                 n=n-d;
             else
                 d=d-n;
-        numarator=a/d;
-        numitor=b/d;
         if(a<0&&b<0)
         {
             numarator=abs(a/d);
             numitor=abs(b/d);
+        }
+        else
+        {
+            numarator=a/d;
+            numitor=b/d;
         }
     }
 }
@@ -148,7 +151,13 @@ Fractie Fractie::operator*(Fractie f)
 Fractie Fractie::operator/(Fractie f)
 {
     if (f.numarator==0)
+    {
+        Fractie ex;
         cout<<"Eroare-impartire la 0"<<endl;
+        ex.set_numarator(1);
+        ex.set_numitor(0);
+        return ex;
+    }
     Fractie rez;
     rez.numarator=(this->numarator)*f.numitor;
     rez.numitor=(this->numitor)*f.numarator;
@@ -166,7 +175,8 @@ Fractie Fractie::operator*(int n)
 int main()
 {
     Fractie cx1,cy1,cx2,cy2,r1,r2,sub1,sub2,sub3,sub4,x,y;
-    cin>>cx1>>cy1>>r1>>cx2>>cy2>>r2;
+    fin>>cx1>>cy1>>r1>>cx2>>cy2>>r2;
+    fin.close();
     if (cx1.get_numarator()==0)
     {
         y=r1/cy1;           /// cum coeficientul lui x in prima ecuatie este 0, gasim direct y
