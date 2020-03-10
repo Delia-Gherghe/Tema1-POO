@@ -23,9 +23,16 @@ public:
     Fractie operator/(Fractie f);
     Fractie operator*(int n);
     friend istream& operator>>(istream& in, Fractie &f);
+    friend ostream& operator<<(ostream& o,Fractie &f);
 
 
 };
+
+ostream&operator<<(ostream &o,Fractie&f)
+{
+    f.afisare();
+    return o;
+}
 
 istream& operator>>(istream &in, Fractie &f)
 {
