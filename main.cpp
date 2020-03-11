@@ -3,8 +3,6 @@
 #include <fstream>
 using namespace std;
 
-ifstream fin("ecuatie.in");
-
 class Fractie
 {
     int numarator;
@@ -78,7 +76,10 @@ int Fractie::get_numitor()
 
 void Fractie::set_numitor(int nr)
 {
-    numitor=nr;
+    if (nr==0)
+        cout<<"Eroare-numitor 0"<<endl;
+    else
+        numitor=nr;
 }
 
 void Fractie::simplificare()
@@ -152,12 +153,10 @@ Fractie Fractie::operator/(Fractie f)
 {
     if (f.numarator==0)
     {
-        Fractie ex;
         cout<<"Eroare-impartire la 0"<<endl;
-        ex.set_numarator(1);
-        ex.set_numitor(0);
-        return ex;
+        return Fractie(1, 0);
     }
+
     Fractie rez;
     rez.numarator=(this->numarator)*f.numitor;
     rez.numitor=(this->numitor)*f.numarator;
@@ -174,6 +173,7 @@ Fractie Fractie::operator*(int n)
 
 int main()
 {
+    ifstream fin("ecuatie.in");
     Fractie cx1,cy1,cx2,cy2,r1,r2,sub1,sub2,sub3,sub4,x,y;
     fin>>cx1>>cy1>>r1>>cx2>>cy2>>r2;
     fin.close();
